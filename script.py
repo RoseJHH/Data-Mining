@@ -15,7 +15,7 @@ def youtube_search(q, max_results=20):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,developerKey=DEVELOPER_KEY)
 
     search_response = youtube.search().list(
-        q=q + " Official Trailer",
+        q=q,
         type="video",
         # pageToken=token,
         # order = order,
