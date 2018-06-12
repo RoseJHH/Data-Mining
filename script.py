@@ -47,11 +47,21 @@ def youtube_search(q, max_results=20):
 
             channelId.append(response['items'][0]['snippet']['channelId'])
             channelTitle.append(response['items'][0]['snippet']['channelTitle'])
-            viewCount.append(response['items'][0]['statistics']['viewCount'])
-            likeCount.append(response['items'][0]['statistics']['likeCount'])
-            dislikeCount.append(response['items'][0]['statistics']['dislikeCount'])
 
-            print (likeCount)
+            if 'viewCount' in response['items'][0]['statistics']:
+                viewCount.append(response['items'][0]['statistics']['viewCount'])
+            else:
+                viewCount.append(0)
+
+            if 'likeCount' in response['items'][0]['statistics']:
+                likeCount.append(response['items'][0]['statistics']['likeCount'])
+            else:
+                likeCount.append(0)
+
+            if 'dislikeCount' in response['items'][0]['statistics']:
+                dislikeCount.append(response['items'][0]['statistics']['dislikeCount'])
+            else:
+                dislikeCount.append(0)
 
         if 'commentCount' in response['items'][0]['statistics'].keys():
             commentCount.append(response['items'][0]['statistics']['commentCount'])
@@ -68,7 +78,7 @@ def youtube_search(q, max_results=20):
 
     return youtube_dict
 
-read = pd.read_csv('/Users/rosejh/PycharmProjects/ProjectSummer/venv/bom_scraper_master/Movie/Dataset2014.csv' )
+read = pd.read_csv('/Users/Kopkap/Desktop/WORKS/Data-Mining/Dataset2013.csv' )
 print(len(read['name'].index))
 # for i in range(low,len(read['name'].index),1):
 test=[]
@@ -76,15 +86,16 @@ df=[]
 index = 0
 # for index in range(0,5):#, row in read.iterrows():
 test=(youtube_search('Iron Man 3'))
-test.keys()
-df=pd.DataFrame(data=test)
+# test.keys()
+print(test)
+# df=pd.DataFrame(data=test)
 #     test.append((youtube_search(read['name'].at[index])))
 # # test.keys()
 #     df.append(pd.DataFrame(data=test[index]))
-df1 = df[['title','viewCount','channelTitle','commentCount','likeCount','dislikeCount','tags','videoId','channelId']]
-df1.columns = ['Title','viewCount','channelTitle','commentCount','likeCount','dislikeCount','tags','videoId','channelId']
+# df1 = df[['title','viewCount','channelTitle','commentCount','likeCount','dislikeCount','tags','videoId','channelId']]
+# df1.columns = ['Title','viewCount','channelTitle','commentCount','likeCount','dislikeCount','tags','videoId','channelId']
 #save file
-df1.to_csv('/Users/rosejh/PycharmProjects/ProjectSummer/venv/bom_scraper_master/outYoutube/test.csv')
+# df1.to_csv('/Users/Kopkap/Desktop/WORKS/Data-Mining/test.csv')
 
 # import lxml
 # import requests
